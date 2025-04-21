@@ -1,10 +1,19 @@
 const express = require("express");
-
+const cors = require("cors");
+require("dotenv").config();
+const {readdirSync}  = require("fs");
+const connectToDb = require("./config/db");
 const app = express();
 
 app.use(express.json());
+app.use(cors())
+
+
+readdirSync("./routes")?.map((r)=> app.use("/api",require(`./routes/${r}`)));
 
 const PORT = process.env.PORT || 8080;
+
+connectToDb();
 
 const server = app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
