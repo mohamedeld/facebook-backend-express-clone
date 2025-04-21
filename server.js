@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const {readdirSync}  = require("fs");
 const connectToDb = require("./config/db");
+const globalError = require("./middleware/globalErrorMw");
 const app = express();
 
 app.use(express.json());
@@ -14,6 +15,8 @@ readdirSync("./routes")?.map((r)=> app.use("/api",require(`./routes/${r}`)));
 const PORT = process.env.PORT || 8080;
 
 connectToDb();
+
+app.use(globalError);
 
 const server = app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
