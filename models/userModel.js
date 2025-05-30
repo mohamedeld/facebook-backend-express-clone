@@ -31,7 +31,7 @@ const userSchema = new Schema({
     },
     picture:{
         type:String,
-        default:""
+        default:"https://www.flaticon.com/free-icons/user"
     },
     cover:{
         type:String,
